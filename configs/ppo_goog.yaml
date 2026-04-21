@@ -1,0 +1,23 @@
+# ============================================================
+# PPO experiment on GOOG — overrides default.yaml
+# ============================================================
+# Usage:
+#   python scripts/train.py --config configs/ppo_goog.yaml
+# ============================================================
+
+agent:
+  type: "PPO"
+  total_timesteps: 300_000
+
+  ppo:
+    learning_rate: 0.0001
+    n_steps: 1000
+    batch_size: 512
+    n_epochs: 20
+    gamma: 0.99
+    gae_lambda: 0.95
+    clip_range: 0.2
+    network:
+      hidden_dim: 512
+      output_dim: 64
+      dropout: 0.1

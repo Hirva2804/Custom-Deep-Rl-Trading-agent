@@ -1,0 +1,23 @@
+# ============================================================
+# DQN experiment on GOOG — overrides default.yaml
+# ============================================================
+# Usage:
+#   python scripts/train.py --config configs/dqn_goog.yaml
+# ============================================================
+
+agent:
+  type: "DQN"
+  total_timesteps: 500_000
+
+  dqn:
+    learning_rate: 0.0001
+    buffer_size: 1_000_000
+    learning_starts: 50_000
+    batch_size: 1024
+    tau: 0.99
+    gamma: 0.99
+    train_freq: 2048 # steps between gradient updates
+    target_update_interval: 5000 # steps between target network updates
+    exploration_fraction: 0.2
+    exploration_initial_eps: 1.0
+    exploration_final_eps: 0.02

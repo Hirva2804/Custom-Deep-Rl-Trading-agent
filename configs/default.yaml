@@ -1,0 +1,80 @@
+# ============================================================
+# DeepRL-trade — Default Configuration
+# ============================================================
+# This file contains ALL settings with their default values.
+# Experiment-specific YAMLs (e.g. ppo_goog.yaml) override
+# only the keys they differ on; everything else falls back here.
+# ============================================================
+
+seed: 42
+
+# ------ Data ------------------------------------------------
+data:
+  source: "yfinance"          # "yfinance" | "tiingo"
+  data_path: "./data"
+  tickers:
+    - "GOOG"
+  start_date: "2016-01-01"
+  end_date: "2025-12-01"
+  train_ratio: 0.8
+  normalization:
+    window: 180
+    method: "rolling_zscore"
+
+# ------ Environment -----------------------------------------
+env:
+  window_size: 30
+  init_cash: 1_000_000
+  commission_rate: 0.005
+  reward:
+    type: "dsr"     # "simple_return" | "dsr"
+    eta: 0.02                 # DSR adaptation rate (only used when type="dsr")
+
+# ------ Agent -----------------------------------------------
+agent:
+  type: "PPO"                  # "PPO" | "DQN"
+  total_timesteps: 700_000
+  eval_freq: 5000
+
+  ppo:
+    learning_rate: 0.0001
+    n_steps: 100
+    batch_size: 512
+    n_epochs: 15
+    gamma: 0.99
+    gae_lambda: 0.95
+    clip_range: 0.2
+    network:
+      hidden_dim: 256
+      output_dim: 64
+      dropout: 0.1
+
+  dqn:
+    learning_rate: 0.0001
+    buffer_size: 1_000_000
+    learning_starts: 50_000
+    batch_size: 512
+    tau: 0.99
+    gamma: 0.99
+    train_freq: 1000
+    target_update_interval: 5000
+    exploration_fraction: 0.2
+    exploration_initial_eps: 1.0
+    exploration_final_eps: 0.02
+
+# ------ Evaluation ------------------------------------------
+evaluation:
+  rounds: 500
+  random_start: true
+
+# ------ Experiment Tracking ---------------------------------
+tracking:
+  use_wandb: true
+  project: "deeprl-trade"
+  entity: null                 # set to your wandb username/team
+
+# ------ Paths -----------------------------------------------
+paths:
+  checkpoint_dir: "./checkpoints"
+  log_dir: "./logs"
+  output_dir: "./outputs"

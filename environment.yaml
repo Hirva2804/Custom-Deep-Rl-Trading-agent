@@ -1,0 +1,41 @@
+name: deeprl-trade
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  # Python
+  - python>=3.12
+
+  # Core RL
+  - gymnasium>=0.29
+
+  # Deep learning (pytorch channel)
+  - pytorch>=2.0
+  - cpuonly            # swap with cudatoolkit=11.8 / pytorch-cuda=12.1 for GPU
+
+  # Data
+  - numpy>=1.23
+  - pandas>=1.5
+  - scipy>=1.9
+
+  # Visualisation
+  - matplotlib>=3.6
+  - seaborn>=0.12
+
+  # Config & environment
+  - pyyaml>=6.0
+  - python-dotenv>=1.0
+
+  # Utilities
+  - tqdm>=4.64
+
+  # --- pip-only packages (not on conda-forge) ---
+  - pip
+  - pip:
+      - stable-baselines3>=2.0
+      - yfinance>=0.2.28
+      - pandas-datareader>=0.10
+      - pandas-ta>=0.3
+      - pyfolio-reloaded>=0.9
+      - wandb>=0.15
